@@ -81,12 +81,10 @@ public class RKPathEntity : Entity {
         
         //Keep all y-values the same so that the ends don't protrude in the y-dimension (looks more like disjointed shapes than one continouous path).
         let currentIndex = (pathPoints.count - 1)
+        let newPosition : SIMD3<Float> = pathPoints[currentIndex]
         let lastPosition : SIMD3<Float> = [pathPoints[currentIndex - 1].x,
-                                           pathPoints[0].y,
+                                           newPosition.y,
                                            pathPoints[currentIndex - 1].z]
-        let newPosition : SIMD3<Float> = [pathPoints[currentIndex].x,
-                                          lastPosition.y,
-                                          pathPoints[currentIndex].z]
         let length = simd_length(newPosition - lastPosition)
         let pathSegment = makePathSegment(length: length)
         self.addChild(pathSegment)
@@ -96,6 +94,11 @@ public class RKPathEntity : Entity {
         //Rotate the rectangle to connect the dots.
         // --(lastPosition is already at one end of the rectangle, rotate to put newPosition at the other end).
         pathSegment.look(at: newPosition, from: lastPosition, relativeTo: nil)
+        
+        //Account for updates in the plane anchor accuracy, but keep the whole path flat.
+        pathEntitiesInScene.forEach { pathEntity in
+            pathEntity.position.y = newPosition.y
+        }
     }
 }
 
