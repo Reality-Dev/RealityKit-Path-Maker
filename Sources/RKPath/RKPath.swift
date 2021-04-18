@@ -1,9 +1,9 @@
 //
 //  RKPathEntity.swift
-//  SCNPath+Example
+//  RKPathMaker+Example
 //
 //  Created by Grant Jarvis on 3/13/21.
-//  Copyright © 2021 Max Cobb. All rights reserved.
+//  Copyright © 2021 Grant Jarvis. All rights reserved.
 //
 
 import SceneKit
@@ -23,7 +23,7 @@ public class RKPathEntity : Entity {
     
     private var pathWidth : Float = 0.5
     
-    init(
+    public init(
         path: [simd_float3],
         width: Float = 0.5,
         materials: [Material] = []
