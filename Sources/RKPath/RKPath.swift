@@ -10,7 +10,9 @@ import SceneKit
 import Combine
 import RealityKit
 
-public class RKPathEntity : Entity {
+public class RKPathEntity : Entity, HasAnchoring {
+    
+    weak var arView : ARView!
     
     public var pathPoints = [simd_float3]() {
         didSet {
@@ -24,14 +26,18 @@ public class RKPathEntity : Entity {
     private var pathWidth : Float = 0.5
     
     public init(
+        arView: ARView,
         path: [simd_float3],
         width: Float = 0.5,
         materials: [Material] = []
     ) {
         super.init()
+        self.arView = arView
         self.pathPoints = path
         self.pathWidth = width
         self.pathMaterials = materials
+        self.anchoring = AnchoringComponent(.world(transform: Transform.identity.matrix))
+        self.arView.scene.addAnchor(self)
         //Remove synchronization to save memory.
         self.visit(using: {$0.synchronization = nil})
     }

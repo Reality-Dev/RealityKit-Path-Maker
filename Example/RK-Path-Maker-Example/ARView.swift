@@ -15,9 +15,7 @@ class ARSUIView: ARView {
     
     public var focusEntity : FocusEntity!
     
-    var pathEntity = RKPathEntity(path: [],
-                                  width: 0.35,
-                                  materials: [UnlitMaterial.init(color: .blue)])
+    var pathEntity : RKPathEntity!
     
     var hitPoints = [simd_float3]() {
         didSet {
@@ -39,10 +37,10 @@ class ARSUIView: ARView {
             runNonLiDARConfig()
         }
 
-        
-        let worldAnchor = AnchorEntity() //point 0,0,0
-        self.scene.addAnchor(worldAnchor)
-        worldAnchor.addChild(pathEntity)
+        self.pathEntity = RKPathEntity(arView: self,
+                                      path: [],
+                                      width: 0.35,
+                                      materials: [UnlitMaterial.init(color: .blue)])
 
         self.setupGestures()
         
