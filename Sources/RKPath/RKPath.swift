@@ -27,7 +27,7 @@ public class RKPathEntity : Entity, HasAnchoring {
     
     public init(
         arView: ARView,
-        path: [simd_float3],
+        path: [simd_float3] = [],
         width: Float = 0.5,
         materials: [Material] = []
     ) {
