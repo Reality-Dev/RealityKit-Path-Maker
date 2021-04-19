@@ -6,8 +6,7 @@ After you add the swift package and `import RKPath`,
 
 1. Initialize a new path entity like this:
  ``` swift
-      var pathEntity = RKPathEntity(arView: arView,
-                                    path: [])
+      var pathEntity = RKPathEntity(arView: arView)
 ```
 or like this:
  ``` swift
